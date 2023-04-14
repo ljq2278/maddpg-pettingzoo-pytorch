@@ -1,6 +1,7 @@
 import argparse
 import os
-
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 from pettingzoo.mpe import simple_adversary_v2, simple_spread_v2, simple_tag_v2
@@ -71,11 +72,11 @@ if __name__ == '__main__':
             if step < args.random_steps:
                 action = {agent_id: env.action_space(agent_id).sample() for agent_id in env.agents}
             else:
-                action = maddpg.select_action(obs)
+                action = maddpg.select_action(obs) ########################################################################################
 
             next_obs, reward, done, info = env.step(action)
             # env.render()
-            maddpg.add(obs, action, reward, next_obs, done)
+            maddpg.add(obs, action, reward, next_obs, done) ###############################################################################
 
             for agent_id, r in reward.items():  # update reward
                 agent_reward[agent_id] += r
